@@ -128,19 +128,21 @@ const birthdayContent = document.getElementById('birthdayContent');
 let clickCount = 0;
 let shooPlayed = false;
 
-// Slowly grow the box on load
+// Slowly grow the box
 let scale = 0.5;
 let growInterval = setInterval(()=>{
-    if(scale < 1) {
+    if(scale < 1){
         scale += 0.01;
         surpriseBox.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    } else {
-        clearInterval(growInterval);
-    }
+    } else clearInterval(growInterval);
 }, 30);
 
-// Move box randomly when hovering (before 2 clicks)
+// When user tries to hover (move away), play shoo once on first attempt
 surpriseBox.addEventListener('mouseover', ()=>{
+    if(!shooPlayed){
+        shooSound.play();
+        shooPlayed = true;
+    }
     if(clickCount < 2){
         const x = Math.random() * (window.innerWidth - surpriseBox.offsetWidth);
         const y = Math.random() * (window.innerHeight - surpriseBox.offsetHeight);
@@ -149,13 +151,8 @@ surpriseBox.addEventListener('mouseover', ()=>{
     }
 });
 
-// Play shoo.mp3 once on first attempt to click
+// Actual click handler (pop + birthday)
 surpriseBox.addEventListener('click', ()=>{
-    if(!shooPlayed){
-        shooSound.play();
-        shooPlayed = true;
-    }
-
     clickCount++;
     if(clickCount >= 2){
         surpriseBox.style.display = 'none';
@@ -172,78 +169,80 @@ surpriseBox.addEventListener('click', ()=>{
 });
 
 // Confetti
-function createConfetti() {
-    for (let i = 0; i < 100; i++) {
-        const c = document.createElement('div');
-        c.className = 'confetti';
-        c.style.left = Math.random() * window.innerWidth + 'px';
-        c.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-        c.style.width = Math.random() * 10 + 5 + 'px';
-        c.style.height = c.style.width;
-        c.style.animationDuration = (2 + Math.random() * 3) + 's';
+function createConfetti(){
+    for(let i=0;i<100;i++){
+        const c=document.createElement('div');
+        c.className='confetti';
+        c.style.left=Math.random()*window.innerWidth+'px';
+        c.style.backgroundColor=`hsl(${Math.random()*360},100%,50%)`;
+        c.style.width=Math.random()*10+5+'px';
+        c.style.height=c.style.width;
+        c.style.animationDuration=(2+Math.random()*3)+'s';
         birthdayContent.appendChild(c);
     }
 }
 
 // Balloons
-function createBalloons() {
-    const colors = ['#ff0000','#ff69b4','#00ffff','#00ff00','#ffff00','#ffa500','#800080'];
-    for (let i = 0; i < 20; i++) {
-        const b = document.createElement('div');
-        b.className = 'balloon';
-        b.style.left = Math.random() * window.innerWidth + 'px';
-        b.style.background = colors[Math.floor(Math.random() * colors.length)];
-        b.style.animationDuration = (3 + Math.random() * 3) + 's';
-        b.addEventListener('click', ()=>{ b.remove(); popSound.play(); });
+function createBalloons(){
+    const colors=['#ff0000','#ff69b4','#00ffff','#00ff00','#ffff00','#ffa500','#800080'];
+    for(let i=0;i<20;i++){
+        const b=document.createElement('div');
+        b.className='balloon';
+        b.style.left=Math.random()*window.innerWidth+'px';
+        b.style.background=colors[Math.floor(Math.random()*colors.length)];
+        b.style.animationDuration=(3+Math.random()*3)+'s';
+        b.addEventListener('click',()=>{ b.remove(); popSound.play(); });
         birthdayContent.appendChild(b);
     }
 }
 
 // Floating images
-function createImages() {
-    const images = ['aazma1.jpg','aazma2.jpg','aazma3.jpg'];
-    for (let i = 0; i < 10; i++) {
-        const img = document.createElement('img');
-        img.src = images[Math.floor(Math.random()*images.length)];
-        img.className = 'funImage';
-        img.style.left = Math.random()*window.innerWidth+'px';
-        img.style.top = Math.random()*(window.innerHeight-100)+'px';
-        img.style.width = 50 + Math.random()*100 + 'px';
+function createImages(){
+    const images=['aazma1.jpg','aazma2.jpg','aazma3.jpg'];
+    for(let i=0;i<10;i++){
+        const img=document.createElement('img');
+        img.src=images[Math.floor(Math.random()*images.length)];
+        img.className='funImage';
+        img.style.left=Math.random()*window.innerWidth+'px';
+        img.style.top=Math.random()*(window.innerHeight-100)+'px';
+        img.style.width=50+Math.random()*100+'px';
         birthdayContent.appendChild(img);
     }
 }
 
 // Fireworks
-const canvas = document.getElementById('fireworksCanvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const canvas=document.getElementById('fireworksCanvas');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+let fireworks=[];
 
-let fireworks = [];
 function random(min,max){return Math.random()*(max-min)+min;}
+
 function Firework(){
-    this.x = random(0,canvas.width);
-    this.y = canvas.height;
-    this.radius = random(2,4);
-    this.color = `hsl(${random(0,360)},100%,50%)`;
-    this.vx = random(-2,2);
-    this.vy = random(-8,-4);
-    this.alpha = 1;
-    this.update = function(){
-        this.x += this.vx;
-        this.y += this.vy;
-        this.vy += 0.1;
-        this.alpha -= 0.01;
+    this.x=random(0,canvas.width);
+    this.y=canvas.height;
+    this.radius=random(2,4);
+    this.color=`hsl(${random(0,360)},100%,50%)`;
+    this.vx=random(-2,2);
+    this.vy=random(-8,-4);
+    this.alpha=1;
+    this.update=function(){
+        this.x+=this.vx;
+        this.y+=this.vy;
+        this.vy+=0.1;
+        this.alpha-=0.01;
     }
-    this.draw = function(){
+    this.draw=function(){
         ctx.beginPath();
-        ctx.globalAlpha = this.alpha;
-        ctx.fillStyle = this.color;
+        ctx.globalAlpha=this.alpha;
+        ctx.fillStyle=this.color;
         ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
         ctx.fill();
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha=1;
     }
 }
+
 function animateFireworks(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(Math.random()<0.05) fireworks.push(new Firework());
@@ -256,8 +255,8 @@ function animateFireworks(){
 }
 
 window.addEventListener('resize', ()=>{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
 });
 </script>
 </body>
