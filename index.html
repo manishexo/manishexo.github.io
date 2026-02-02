@@ -55,6 +55,8 @@ h1 {
     text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
     margin-top: 50px;
     animation: flash 1s infinite alternate;
+    z-index: 5;
+    position: relative;
 }
 @keyframes flash {
     0% { color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
@@ -69,6 +71,7 @@ h1 {
     animation: floaty 4s ease-in-out infinite alternate;
     border-radius: 15px;
     box-shadow: 0 0 10px #fff;
+    z-index: 5;
 }
 @keyframes floaty {
     0% { transform: translateY(0) rotate(0deg); }
@@ -83,6 +86,7 @@ h1 {
     height: 10px;
     opacity: 0.9;
     animation: fall 3s linear infinite;
+    z-index: 5;
 }
 @keyframes fall {
     0% { transform: translateY(-10px) rotate(0deg); }
@@ -94,9 +98,10 @@ h1 {
     position: absolute;
     width: 60px;
     height: 80px;
-    border-radius: 50% 50% 50% 50%;
+    border-radius: 50%;
     animation: rise 5s ease-in-out infinite;
     cursor: pointer;
+    z-index: 5;
 }
 @keyframes rise {
     0% { transform: translateY(100vh) rotate(0deg); }
@@ -117,8 +122,8 @@ h1 {
 <div id="surpriseBox">Click Me If You Dare! 😏</div>
 
 <div id="birthdayContent">
-    <h1>🎉 Happy Birthday Aazma! 🥳🎂🎈</h1>
     <canvas id="fireworksCanvas"></canvas>
+    <h1>🎉 Happy Birthday Aazma! 🥳🎂🎈</h1>
 </div>
 
 <!-- Music -->
@@ -163,10 +168,10 @@ function createBalloons() {
     }
 }
 
-// Dancing images (Aazma's photos)
+// Dancing images
 function createImages() {
     const images = [
-        'aazma1.jpg', // Replace with her photos
+        'aazma1.jpg',
         'aazma2.jpg',
         'aazma3.jpg'
     ];
@@ -216,8 +221,7 @@ function Firework(){
 }
 
 function animate(){
-    ctx.fillStyle = "rgba(0,0,0,0.2)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     if(Math.random()<0.05) fireworks.push(new Firework());
     fireworks.forEach((f,i)=>{
         f.update();
@@ -237,6 +241,12 @@ document.getElementById('surpriseBox').addEventListener('click', function(){
     createBalloons();
     createImages();
     animate();
+});
+
+// Make canvas resize with window
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 </script>
 
