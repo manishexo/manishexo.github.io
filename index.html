@@ -126,17 +126,19 @@ h1 {
     <h1>🎉 Happy Birthday Aazma! 🥳🎂🎈</h1>
 </div>
 
-<!-- Music -->
+<!-- Audio -->
+<audio id="popSound">
+    <source src="pop.mp3" type="audio/mpeg">
+</audio>
 <audio id="birthdayMusic" loop>
     <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Pop sound -->
-<audio id="popSound">
-    <source src="pop.mp3" type="audio/mpeg">
-</audio>
-
 <script>
+// Audio elements
+const popSound = document.getElementById('popSound');
+const birthdayMusic = document.getElementById('birthdayMusic');
+
 // Confetti
 function createConfetti() {
     for (let i = 0; i < 100; i++) {
@@ -162,7 +164,7 @@ function createBalloons() {
         b.style.animationDuration = (3 + Math.random() * 3) + 's';
         b.addEventListener('click', () => {
             b.remove();
-            document.getElementById('popSound').play();
+            popSound.play();
         });
         document.getElementById('birthdayContent').appendChild(b);
     }
@@ -231,24 +233,27 @@ function animate(){
     requestAnimationFrame(animate);
 }
 
-// Click to reveal birthday
+// Click to trigger pop first, then birthday music
 document.getElementById('surpriseBox').addEventListener('click', function(){
     this.style.display = 'none';
-    const content = document.getElementById('birthdayContent');
-    content.style.display = 'block';
-    document.getElementById('birthdayMusic').play();
-    createConfetti();
-    createBalloons();
-    createImages();
-    animate();
+    popSound.play();
+
+    popSound.onended = function() {
+        birthdayMusic.play();
+        const content = document.getElementById('birthdayContent');
+        content.style.display = 'block';
+        createConfetti();
+        createBalloons();
+        createImages();
+        animate();
+    };
 });
 
-// Make canvas resize with window
+// Resize canvas
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
 </script>
-
 </body>
 </html>
