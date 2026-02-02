@@ -3,132 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate Birthday Surprise for Aazma!</title>
+<title>Ultimate Birthday Party for Aazma!</title>
 <style>
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        font-family: 'Comic Sans MS', cursive, sans-serif;
-        background: #000;
-        cursor: pointer;
-    }
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: #000;
+    cursor: pointer;
+}
 
-    /* Initial funny box */
-    #surpriseBox {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: #ff3d00;
-        color: #fff;
-        font-size: 30px;
-        padding: 40px;
-        border-radius: 20px;
-        text-align: center;
-        animation: pulse 1.5s infinite;
-        z-index: 10;
-    }
+/* Initial funny box */
+#surpriseBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff3d00;
+    color: #fff;
+    font-size: 30px;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    animation: pulse 1.5s infinite;
+    z-index: 10;
+}
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
 
-    @keyframes pulse {
-        0% { transform: translate(-50%, -50%) scale(1); }
-        50% { transform: translate(-50%, -50%) scale(1.1); }
-        100% { transform: translate(-50%, -50%) scale(1); }
-    }
+/* Birthday content */
+#birthdayContent {
+    display: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: radial-gradient(circle, #ff9a9e, #fad0c4, #a18cd1);
+}
 
-    /* Main birthday screen */
-    #birthdayContent {
-        display: none;
-        position: relative;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle, #ff9a9e, #fad0c4, #a18cd1);
-        overflow: hidden;
-    }
+/* Happy Birthday text */
+h1 {
+    text-align: center;
+    font-size: 70px;
+    color: #fff;
+    text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+    margin-top: 50px;
+    animation: flash 1s infinite alternate;
+}
+@keyframes flash {
+    0% { color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+    50% { color: #00ffff; text-shadow: 0 0 20px #00ffff; }
+    100% { color: #ff00ff; text-shadow: 0 0 30px #ff00ff; }
+}
 
-    h1 {
-        text-align: center;
-        font-size: 70px;
-        color: #fff;
-        text-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
-        margin-top: 50px;
-        animation: flash 1s infinite alternate;
-    }
+/* Dancing images */
+.funImage {
+    position: absolute;
+    width: 100px;
+    animation: floaty 4s ease-in-out infinite alternate;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #fff;
+}
+@keyframes floaty {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-50px) rotate(20deg); }
+    100% { transform: translateY(0) rotate(-20deg); }
+}
 
-    @keyframes flash {
-        0% { color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
-        50% { color: #00ffff; text-shadow: 0 0 20px #00ffff; }
-        100% { color: #ff00ff; text-shadow: 0 0 30px #ff00ff; }
-    }
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0.9;
+    animation: fall 3s linear infinite;
+}
+@keyframes fall {
+    0% { transform: translateY(-10px) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
 
-    /* Dancing images */
-    .funImage {
-        position: absolute;
-        width: 100px;
-        animation: floaty 4s ease-in-out infinite alternate;
-    }
+/* Balloon style */
+.balloon {
+    position: absolute;
+    width: 60px;
+    height: 80px;
+    border-radius: 50% 50% 50% 50%;
+    animation: rise 5s ease-in-out infinite;
+    cursor: pointer;
+}
+@keyframes rise {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100px) rotate(360deg); }
+}
 
-    @keyframes floaty {
-        0% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-50px) rotate(20deg); }
-        100% { transform: translateY(0) rotate(-20deg); }
-    }
-
-    /* Confetti */
-    .confetti {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background-color: red;
-        opacity: 0.9;
-        animation: fall 3s linear infinite;
-    }
-
-    @keyframes fall {
-        0% { transform: translateY(-10px) rotate(0deg); }
-        100% { transform: translateY(100vh) rotate(360deg); }
-    }
-
-    /* Balloon style */
-    .balloon {
-        position: absolute;
-        width: 60px;
-        height: 80px;
-        border-radius: 50% 50% 50% 50%;
-        background: red;
-        animation: rise 5s ease-in-out infinite;
-    }
-
-    @keyframes rise {
-        0% { transform: translateY(100vh) rotate(0deg); }
-        100% { transform: translateY(-100px) rotate(360deg); }
-    }
+/* Fireworks canvas */
+#fireworksCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
 </style>
 </head>
 <body>
 
-<!-- Initial Funny Box -->
 <div id="surpriseBox">Click Me If You Dare! 😏</div>
 
-<!-- Birthday Content -->
 <div id="birthdayContent">
     <h1>🎉 Happy Birthday Aazma! 🥳🎂🎈</h1>
+    <canvas id="fireworksCanvas"></canvas>
 </div>
 
-<!-- Background Music -->
+<!-- Music -->
 <audio id="birthdayMusic" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-funny.mp3" type="audio/mpeg">
+    <source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <!-- Pop sound -->
 <audio id="popSound">
-    <source src="https://www.soundjay.com/button/sounds/button-16.mp3" type="audio/mpeg">
+    <source src="pop.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Function to create confetti
+// Confetti
 function createConfetti() {
     for (let i = 0; i < 100; i++) {
         const c = document.createElement('div');
@@ -142,25 +146,29 @@ function createConfetti() {
     }
 }
 
-// Function to create balloons
+// Balloons
 function createBalloons() {
-    const colors = ['#ff0000','#ff69b4','#00ffff','#00ff00','#ffff00'];
+    const colors = ['#ff0000','#ff69b4','#00ffff','#00ff00','#ffff00','#ffa500','#800080'];
     for (let i = 0; i < 20; i++) {
         const b = document.createElement('div');
         b.className = 'balloon';
         b.style.left = Math.random() * window.innerWidth + 'px';
         b.style.background = colors[Math.floor(Math.random() * colors.length)];
         b.style.animationDuration = (3 + Math.random() * 3) + 's';
+        b.addEventListener('click', () => {
+            b.remove();
+            document.getElementById('popSound').play();
+        });
         document.getElementById('birthdayContent').appendChild(b);
     }
 }
 
-// Function to create funny images
+// Dancing images (Aazma's photos)
 function createImages() {
     const images = [
-        'https://i.postimg.cc/9Qx8L5mM/funny1.png',
-        'https://i.postimg.cc/5tQv0G6K/funny2.png',
-        'https://i.postimg.cc/xTRtLhDs/funny3.png'
+        'aazma1.jpg', // Replace with her photos
+        'aazma2.jpg',
+        'aazma3.jpg'
     ];
     for (let i = 0; i < 10; i++) {
         const img = document.createElement('img');
@@ -168,22 +176,67 @@ function createImages() {
         img.className = 'funImage';
         img.style.left = Math.random() * window.innerWidth + 'px';
         img.style.top = Math.random() * (window.innerHeight - 100) + 'px';
-        img.style.width = 50 + Math.random() * 50 + 'px';
+        img.style.width = 50 + Math.random() * 100 + 'px';
         document.getElementById('birthdayContent').appendChild(img);
     }
 }
 
-// Click event to reveal birthday content
-document.getElementById('surpriseBox').addEventListener('click', function() {
+// Fireworks
+const canvas = document.getElementById('fireworksCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function random(min,max){return Math.random()*(max-min)+min;}
+
+let fireworks = [];
+
+function Firework(){
+    this.x = random(0,canvas.width);
+    this.y = canvas.height;
+    this.radius = random(2,4);
+    this.color = `hsl(${random(0,360)},100%,50%)`;
+    this.vx = random(-2,2);
+    this.vy = random(-8,-4);
+    this.alpha = 1;
+    this.update = function(){
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += 0.1;
+        this.alpha -= 0.01;
+    }
+    this.draw = function(){
+        ctx.beginPath();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+    }
+}
+
+function animate(){
+    ctx.fillStyle = "rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    if(Math.random()<0.05) fireworks.push(new Firework());
+    fireworks.forEach((f,i)=>{
+        f.update();
+        f.draw();
+        if(f.alpha<=0) fireworks.splice(i,1);
+    });
+    requestAnimationFrame(animate);
+}
+
+// Click to reveal birthday
+document.getElementById('surpriseBox').addEventListener('click', function(){
     this.style.display = 'none';
     const content = document.getElementById('birthdayContent');
     content.style.display = 'block';
     document.getElementById('birthdayMusic').play();
-    document.getElementById('popSound').play();
-
     createConfetti();
     createBalloons();
     createImages();
+    animate();
 });
 </script>
 
