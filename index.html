@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhai ka birthday hai aaj!</title>
+<title>Birthday Prank for Aazma!</title>
 <style>
 body, html {
     margin: 0;
@@ -126,11 +126,7 @@ const surpriseBox = document.getElementById('surpriseBox');
 const birthdayContent = document.getElementById('birthdayContent');
 
 let clickCount = 0;
-
-// Play shoo.mp3 once when site loads
-window.addEventListener('load', ()=>{
-    shooSound.play();
-});
+let shooPlayed = false;
 
 // Slowly grow the box on load
 let scale = 0.5;
@@ -143,9 +139,9 @@ let growInterval = setInterval(()=>{
     }
 }, 30);
 
-// Move box randomly when trying to hover (before 2 clicks)
+// Move box randomly when hovering (before 2 clicks)
 surpriseBox.addEventListener('mouseover', ()=>{
-    if(clickCount < 2) {
+    if(clickCount < 2){
         const x = Math.random() * (window.innerWidth - surpriseBox.offsetWidth);
         const y = Math.random() * (window.innerHeight - surpriseBox.offsetHeight);
         surpriseBox.style.left = x + 'px';
@@ -153,10 +149,15 @@ surpriseBox.addEventListener('mouseover', ()=>{
     }
 });
 
-// On click
+// Play shoo.mp3 once on first attempt to click
 surpriseBox.addEventListener('click', ()=>{
+    if(!shooPlayed){
+        shooSound.play();
+        shooPlayed = true;
+    }
+
     clickCount++;
-    if(clickCount >= 2) {
+    if(clickCount >= 2){
         surpriseBox.style.display = 'none';
         popSound.play();
         popSound.onended = function() {
@@ -219,9 +220,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let fireworks = [];
-
 function random(min,max){return Math.random()*(max-min)+min;}
-
 function Firework(){
     this.x = random(0,canvas.width);
     this.y = canvas.height;
@@ -245,7 +244,6 @@ function Firework(){
         ctx.globalAlpha = 1;
     }
 }
-
 function animateFireworks(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     if(Math.random()<0.05) fireworks.push(new Firework());
