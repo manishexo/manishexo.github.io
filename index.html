@@ -137,12 +137,8 @@ let growInterval = setInterval(()=>{
     } else clearInterval(growInterval);
 }, 30);
 
-// When user tries to hover (move away), play shoo once on first attempt
+// Box moves randomly on hover
 surpriseBox.addEventListener('mouseover', ()=>{
-    if(!shooPlayed){
-        shooSound.play();
-        shooPlayed = true;
-    }
     if(clickCount < 2){
         const x = Math.random() * (window.innerWidth - surpriseBox.offsetWidth);
         const y = Math.random() * (window.innerHeight - surpriseBox.offsetHeight);
@@ -151,7 +147,15 @@ surpriseBox.addEventListener('mouseover', ()=>{
     }
 });
 
-// Actual click handler (pop + birthday)
+// Play shoo.mp3 once on first mousedown attempt
+surpriseBox.addEventListener('mousedown', ()=>{
+    if(!shooPlayed){
+        shooSound.play().catch(()=>console.log('shoo blocked'));
+        shooPlayed = true;
+    }
+});
+
+// Actual clicks
 surpriseBox.addEventListener('click', ()=>{
     clickCount++;
     if(clickCount >= 2){
