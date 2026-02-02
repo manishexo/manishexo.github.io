@@ -1,10 +1,150 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+<meta charset="UTF-8">
+<title>Happy Birthday Aazma 🎉</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fbc2eb);
+  background-size: 600% 600%;
+  animation: bgMove 10s infinite;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+@keyframes bgMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+h1 {
+  font-size: 3em;
+  margin-top: 30px;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+.fun-text {
+  font-size: 1.5em;
+  animation: shake 0.4s infinite;
+  display: inline-block;
+}
+
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.slideshow {
+  width: 260px;
+  height: 260px;
+  margin: 30px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: slide 9s infinite;
+}
+
+@keyframes slide {
+  0% {opacity: 1;}
+  33% {opacity: 0;}
+  66% {opacity: 1;}
+}
+
+button {
+  padding: 15px 25px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 30px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.1);}
+  100% {transform: scale(1);}
+}
+
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 10px;
+  height: 10px;
+  background: red;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+</style>
 </head>
+
 <body>
-  <h1>Hello 👋</h1>
-  <p>This is my first website.</p>
+
+<h1>🎉 HAPPY BIRTHDAY AAZMA 🎂</h1>
+
+<p class="fun-text">Another year older… still cute 😜</p>
+
+<div class="slideshow">
+  <img id="slide" src="photo1.jpg">
+</div>
+
+<p>😂 Warning: Too much cuteness ahead 😂</p>
+
+<button onclick="party()">CLICK FOR BIRTHDAY MAGIC 🎊</button>
+
+<audio id="music" src="music.mp3"></audio>
+
+<script>
+let photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+let index = 0;
+
+setInterval(() => {
+  index = (index + 1) % photos.length;
+  document.getElementById("slide").src = photos[index];
+}, 3000);
+
+function party() {
+  document.getElementById("music").play();
+
+  for (let i = 0; i < 100; i++) {
+    let confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.backgroundColor =
+      `hsl(${Math.random()*360}, 100%, 50%)`;
+    document.body.appendChild(confetti);
+
+    setTimeout(() => confetti.remove(), 5000);
+  }
+
+  alert("🎂 Happy Birthday Aazma! Cake kidhar hai? 🍰😂");
+}
+</script>
+
 </body>
 </html>
